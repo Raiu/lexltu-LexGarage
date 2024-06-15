@@ -1,11 +1,11 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace LexGarage;
 
 public struct Ruid : IEquatable<Ruid> {
 
-    private ulong _number;
+    private readonly ulong _number;
 
     private const string ValidCharInput = "^[A-Za-z0-9]{8}$";
 
@@ -17,49 +17,18 @@ public struct Ruid : IEquatable<Ruid> {
 
     public Ruid(string id) {
         Validate(id);
-        Encode(id);
+        _number =Encode(id);
     }
 
     ////////////////////////////////////////////////////////////////////////////////
-
-    private static void Validate(string input) {
-        if (!Regex.IsMatch(input, "^[A-Za-z0-9]{8}$"))
-            throw new ArgumentException($"{input} is an invalid license plate");
-    }
-
-    private void Encode(string input) {
-        var encoded = "";
-        foreach (var c in input.ToUpper())
-            encoded += (int)c;
-        _number = ulong.Parse(encoded);
-    }
-
-    private string Decode() {
-        var decoded = "";
-        foreach (var seg in Split(_number.ToString(), 2))
-            decoded += (char)int.Parse(seg);
-        return decoded;
-    }
-
-    private static IEnumerable<string> Split(string str, int size) =>
-        Enumerable.Range(0, str.Length / size).Select(i => str.Substring(i * size, size));
-
-    private static string GenerateRandomRuid(int length) {
-        var sb = new StringBuilder();
-        for (int i = 0; i < length / 2; i++)
-            sb.Append((char)_rand.Next('A', 'Z' + 1));
-        for (int i = 0; i < length / 2; i++)
-            sb.Append(_rand.Next(0,  10));
-        return sb.ToString();
-    }
 
     public static Ruid NewRuid() => new Ruid(GenerateRandomRuid(8));
 
     public readonly bool Equals(Ruid other) => _number == other._number;
 
-    public static bool operator == (Ruid a, Ruid b) => a.Equals(b);
+    public static bool operator ==(Ruid a, Ruid b) => a.Equals(b);
 
-    public static bool operator != (Ruid a, Ruid b) => !a.Equals(b);
+    public static bool operator !=(Ruid a, Ruid b) => !a.Equals(b);
 
     public override string ToString() => Decode();
 
@@ -68,6 +37,47 @@ public struct Ruid : IEquatable<Ruid> {
     public override readonly int GetHashCode() => _number.GetHashCode();
 
     public override readonly bool Equals(object? obj) => obj is Ruid && Equals(obj);
+    
+    private static void Validate(string input) {
+        if(!Regex.IsMatch(input, "^[A-Za-z0-9]{8}$")) {
+            throw new ArgumentException($"{input} is an invalid license plate");
+        }
+    }
+
+    private ulong Encode(string input) {
+        var encoded = new StringBuilder();
+        foreach(var c in input.ToUpper()) {
+            encoded.Append((int)c);
+        }
+
+        return ulong.Parse(encoded.ToString());
+    }
+
+    private string Decode() {
+        var decoded = new StringBuilder();
+        foreach(var seg in Split(_number.ToString(), 2)) {
+            decoded.Append((char)int.Parse(seg));
+        }
+
+        return decoded.ToString();
+    }
+
+    private static IEnumerable<string> Split(string str, int size) =>
+        Enumerable.Range(0, str.Length / size).Select(i => str.Substring(i * size, size));
+
+    private static string GenerateRandomRuid(int length) {
+        var sb = new StringBuilder();
+        for(var i = 0; i < length / 2; i++) {
+            sb.Append((char)_rand.Next('A', 'Z' + 1));
+        }
+
+        for(var i = 0; i < length / 2; i++) {
+            sb.Append(_rand.Next(0, 10));
+        }
+
+        return sb.ToString();
+    }
+
 
     /* Graveyard
 

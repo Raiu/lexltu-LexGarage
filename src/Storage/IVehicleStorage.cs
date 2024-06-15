@@ -1,4 +1,4 @@
-﻿namespace LexGarage;
+namespace LexGarage;
 
 public interface IVehicleStorage
 {

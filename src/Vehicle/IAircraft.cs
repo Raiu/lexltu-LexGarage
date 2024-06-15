@@ -1,5 +1,6 @@
-﻿namespace LexGarage;
+namespace LexGarage;
 
-public interface IAircraft : IVehicle {
+public interface IAircraft : IVehicle
+{
     int TailNumber { get; }
 }

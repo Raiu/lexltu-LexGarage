@@ -1,8 +1,8 @@
 namespace LexGarage;
 
-public class Garage : IVehicleStorage {
+public class Garage<T> : IVehicleStorage where T : IVehicle {
 
-    private Catalogue<IVehicle> _vehicles;
+    private Catalogue<T> _vehicles;
 
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -10,18 +10,20 @@ public class Garage : IVehicleStorage {
     }
 
     public Garage(int size) {
-        _vehicles = new Catalogue<IVehicle>(size);
+        _vehicles = new Catalogue<T>(size);
     }
 
     ////////////////////////////////////////////////////////////////////////////////
 
-    public void Add(IVehicle vehicle) => throw new NotImplementedException();
+    public void Add(T vehicle) => throw new NotImplementedException();
 
-    public void Remove(IVehicle vehicle) => throw new NotImplementedException();
+    public void Remove(T vehicle) => throw new NotImplementedException();
 
     public void Clear() => throw new NotImplementedException();
 
     public void IncreaseSize(int newSize) => throw new NotImplementedException();
 
-    public IVehicle GetVehicleByVin(Vuid vin) => throw new NotImplementedException();
+    public IEnumerable<T> GetVehicles() => throw new NotImplementedException();
+
+    public T GetVehicleByVin(Vuid vin) => throw new NotImplementedException();
 }
