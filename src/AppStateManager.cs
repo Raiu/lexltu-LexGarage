@@ -1,6 +1,6 @@
 namespace LexGarage;
 
-internal class AppStateManager {
+public class AppStateManager {
 
     public List<Vuid> Vins { get; set; } = null!;
 

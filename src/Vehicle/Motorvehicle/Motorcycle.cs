@@ -5,5 +5,5 @@ public class Motorcycle : IMotorvehicle {
 
     public Ruid RegistrationNumber => throw new NotImplementedException();
 
-    Vuid IVehicle.VIN => throw new NotImplementedException();
+    Vuid IVehicle.Vin => throw new NotImplementedException();
 }

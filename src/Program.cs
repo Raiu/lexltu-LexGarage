@@ -1,6 +1,7 @@
-// See https://aka.ms/new-console-template for more information
-
 using LexGarage;
 
-var app = new App();
+var inputHandler = new ConsoleUserInput();
+var outputHandler = new ConsoleUserOutput();
+
+var app = new Application(inputHandler, outputHandler);
 app.Run();

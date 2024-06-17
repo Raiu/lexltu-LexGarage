@@ -2,6 +2,9 @@ namespace LexGarage;
 
 public interface IVehicle
 {
-    Vuid VIN { get; }
+    Vuid Vin { get; }
 
+    void Start();
+
+    void Stop();
 }

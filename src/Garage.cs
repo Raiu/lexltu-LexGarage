@@ -1,6 +1,6 @@
 namespace LexGarage;
 
-public class Garage<T> : IVehicleStorage where T : IVehicle {
+public class Garage<T> : IVehicleStorage<T> where T : IVehicle {
 
     private Catalogue<T> _vehicles;
 
@@ -15,9 +15,9 @@ public class Garage<T> : IVehicleStorage where T : IVehicle {
 
     ////////////////////////////////////////////////////////////////////////////////
 
-    public void Add(T vehicle) => throw new NotImplementedException();
+    public void Park(T vehicle) => throw new NotImplementedException();
 
-    public void Remove(T vehicle) => throw new NotImplementedException();
+    public void Withdraw(T vehicle) => throw new NotImplementedException();
 
     public void Clear() => throw new NotImplementedException();
 
@@ -26,4 +26,8 @@ public class Garage<T> : IVehicleStorage where T : IVehicle {
     public IEnumerable<T> GetVehicles() => throw new NotImplementedException();
 
     public T GetVehicleByVin(Vuid vin) => throw new NotImplementedException();
+
+    public string GetLocation() {
+        throw new NotImplementedException();
+    }
 }

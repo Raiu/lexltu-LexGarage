@@ -1,8 +1,12 @@
+using System.Drawing;
+
 namespace LexGarage;
 
 public interface IVehicleBuilder<T> where T : IVehicle
 {
-    IVehicleBuilder<T> SetVin();
+    void SetVin(Vuid vin);
 
-    IVehicleBuilder<T> CreateVin();
+    void SetColor(VehicleColor color);
+
+    T Build();
 }
