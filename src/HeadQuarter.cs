@@ -7,25 +7,29 @@ public enum StorageType {
     Harbour
 }
 
-public class HeadQuarter {
+public class Headquarter {
 
-    private AppStateManager _stateManager;
+    private StateMachine _stateMachine;
 
     private IVehicleStorage<IVehicle> _storage;
 
     private List<IVehicle> _unParkedVehicles = null!;
 
-    public HeadQuarter(AppStateManager stateManager) {
-        _stateManager = stateManager;
+    public Headquarter(StateMachine stateMachine) {
+        _stateMachine = stateMachine;
         _storage = new Garage<IVehicle>();        
     }
 
-    public void AddStorage(StorageType type, int size) {
+    public void AddStorage(int capacity) {
+        _storage = new Garage<IVehicle>(capacity);
+    }
+
+    /* public void AddStorage(StorageType type, int size) {
         _storage = type switch {
             StorageType.Garage => new Garage<IVehicle>(size),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Invalid storage type"),
         };
-    }
+    } */
 
     public void CreateNew(string name, int size) {
 

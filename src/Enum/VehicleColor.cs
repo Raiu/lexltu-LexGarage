@@ -8,4 +8,6 @@ public enum VehicleColor {
     Yellow,
     Black,
     Green,
+    Purple,
+    Orange,
 }
