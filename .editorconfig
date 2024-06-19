@@ -82,8 +82,8 @@ csharp_new_line_between_query_expression_clauses                   = false : war
 
 # Indentation options: https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference#indent
 csharp_indent_case_contents                                        = true
-csharp_indent_switch_labels                                        = false
-csharp_indent_labels                                               = flush_left
+csharp_indent_switch_labels                                        = true
+csharp_indent_labels                                               = no_change
 
 # Spacing options: https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference#spacing
 csharp_space_after_cast                                            = false

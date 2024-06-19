@@ -2,9 +2,9 @@ using System.Collections;
 
 namespace LexGarage;
 
-public class Catalogue<T> : IEnumerable<T>, ICollection<T>, IList<T> {
+public class Catalogue<T>(int size) : IEnumerable<T>, ICollection<T>, IList<T> {
 
-    private T[] _items;
+    private T[] _items = new T[size];
 
     private int _count = 0;
 
@@ -16,20 +16,18 @@ public class Catalogue<T> : IEnumerable<T>, ICollection<T>, IList<T> {
 
     public Catalogue() : this(8) { }
 
-    public Catalogue(int size) {
-        _items = new T[size];
-    }
-
     ////////////////////////////////////////////////////////////////////////////////
 
-    // Only allow positive, maybe allow both later ChangeSize
     public void IncreaseSize(int newSize) {
+        if (newSize <= _items.Length) {
+            throw new ArgumentOutOfRangeException(nameof(newSize), "New size must be greater than current size");
+        }
         var newItems = new T[newSize];
         _items.CopyTo(newItems, 0);
         _items = newItems;
     }
 
-    public List<T> ToList() => throw new NotImplementedException();
+    public List<T> ToList() => [.. _items];
 
     public T this[int index] {
         get => _items[index];
@@ -38,14 +36,12 @@ public class Catalogue<T> : IEnumerable<T>, ICollection<T>, IList<T> {
 
     public void Add(T item) {
         CheckCatalogueFull();
-
         for (var i = 0; i < _items.Length; i++) {
             if (_items[i] == null) {
                 _items[i] = item;
                 break;
             }
         }
-
         Recount();
     }
 
@@ -72,7 +68,9 @@ public class Catalogue<T> : IEnumerable<T>, ICollection<T>, IList<T> {
     }
 
     public IEnumerator<T> GetEnumerator() {
-        throw new NotImplementedException();
+        for (int i = 0; i < _count; i++) {
+            yield return _items[i];
+        }
     }
 
     public int IndexOf(T item) => Array.IndexOf(_items, item);

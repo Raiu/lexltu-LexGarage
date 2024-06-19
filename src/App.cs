@@ -24,7 +24,7 @@ public class App
     public App(IUserInterface ui, StateMachine stateMachine) {
         _ui = ui;
         _stateMachine = stateMachine;
-        _headQuarter = new Headquarter(_stateMachine);
+        _headQuarter = new Headquarter(ui: _ui, stateMachine: _stateMachine);
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,7 @@ public class App
                 "1" => AppState.Headquarter,
                 "2" => AppState.LoadSession,
                 "3" => AppState.SaveSession,
-                "4" => AppState.Exit,
+                "4" or "0" or "q" => AppState.Exit,
                 _ => AppState.None
             };
 
@@ -74,8 +74,8 @@ public class App
     }
 
     private void HeadquarterController() {
-        
-
+        _headQuarter.Run();
+        State = AppState.MainMenu;
     }
 
     private void LoadSessionController() {

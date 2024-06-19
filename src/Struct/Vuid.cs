@@ -19,6 +19,32 @@ public struct Vuid(ulong id) : IEquatable<Vuid> {
         return BitConverter.ToUInt64(buf, 0);
     }
 
+    public static bool IsValid(string? value) {
+        if (value is null) {
+            return false;
+        }
+        if (value.Length != 32) {
+            return false;
+        }
+        return ulong.TryParse(value, out _);
+    }
+
+    public static Vuid Parse(string value) {
+        if (!IsValid(value)) {
+            throw new ArgumentException($"{value} is an invalid vehicle id");
+        }
+        return new Vuid(ulong.Parse(value));
+    }
+
+    public static bool TryParse(string value, out Vuid result) {
+        if (!IsValid(value)) {
+            result = default;
+            return false;
+        }
+        result = new Vuid(ulong.Parse(value));
+        return true;
+    }
+
     public static Vuid NewVuid() => new(GenerateRandomVuid());
 
     public readonly bool Equals(Vuid other) => _number == other._number;
