@@ -26,21 +26,11 @@ public class Garage<T> : IVehicleStorage<T> where T : IVehicle {
 
     public void Remove(T vehicle) => _vehicles.Remove(vehicle);
 
-    public void Park(T vehicle) => throw new NotImplementedException();
-
-    public void Withdraw(T vehicle) => throw new NotImplementedException();
-
-    public void Clear() => throw new NotImplementedException();
-
-    public void IncreaseSize(int newSize) => throw new NotImplementedException();
+    public void IncreaseSize(int newSize) => _vehicles.IncreaseSize(newSize);
 
     public IEnumerable<T> GetVehicles() => [.. _vehicles];
 
-    public T GetVehicleByVin(Vuid vin) => throw new NotImplementedException();
-
-    public string GetLocation() {
-        throw new NotImplementedException();
-    }
+    public T? GetVehicleByVin(Vuid vin) => _vehicles.FirstOrDefault(v => v.Vin == vin);
 
     public T GetVehicleByLicensePlate(Ruid license) {
         throw new NotImplementedException();

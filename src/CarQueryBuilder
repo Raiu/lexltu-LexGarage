@@ -1,0 +1,21 @@
+namespace LexGarage;
+
+public class CarQueryBuilder  {
+
+    private Vuid? _vin;
+
+    private VehicleColor? _color;
+
+    private int? _nrOfWheels;
+
+    public void ByVin(Vuid vin) => _vin = vin;
+
+    public void ByColor(VehicleColor color) => _color = color;
+
+    public void ByNumberOfWheels(int nrOfWheels) => _nrOfWheels = nrOfWheels;
+
+    public Func<Car, bool> Build() {
+        return car => ()
+    }
+
+}
